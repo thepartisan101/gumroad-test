@@ -275,7 +275,7 @@ const Chat = ({
         {messages.map((msg, index) => (
           <Message key={index} role={msg.role} text={msg.text} />
         ))}
-        {isLoading && <LoadingDots />}
+        {isLoading && (!messages || messages.length === 0) && <LoadingDots />}
         <div ref={messagesEndRef} />
       </div>
       <form
