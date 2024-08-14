@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AssistantStream } from "openai/lib/AssistantStream";
 import Markdown from "react-markdown";
 // @ts-expect-error - no types for this yet
@@ -22,22 +22,23 @@ const UserMessage = ({ text }: { text: string }) => {
   };
 
 const AssistantMessage = ({ text }: { text: string }) => {
+  const cleanedText = text.replace(/\n+/g, '\n').trim();
     return (
         <div className="my-2 p-2 md:p-2 self-start bg-gray-100 rounded-sm max-w-4/5 break-words">
-        <Markdown
-            components={{
-                a: ({ node, ...props }) => (
-                    <a
-                        {...props}
-                        className="text-blue-500 hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    />
-                ),
-            }}
-        >
-            {text}
-        </Markdown>
+            <Markdown
+                components={{
+                    a: ({ node, ...props }) => (
+                        <a
+                            {...props}
+                            className="text-blue-500 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        />
+                    ),
+                }}
+            >
+                {cleanedText}
+            </Markdown>
         </div>
     );
 };
@@ -83,44 +84,8 @@ const Chat = ({
   const [threadId, setThreadId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    console.log("Key pressed:", e.key);
-    // Ignore if the target is already an input or textarea
-    if (
-      e.target instanceof HTMLInputElement ||
-      e.target instanceof HTMLTextAreaElement
-    ) {
-      return;
-    }
-
-    // Ignore modifier keys
-    if (e.ctrlKey || e.altKey || e.metaKey) {
-      return;
-    }
-
-    // Focus the input if it's a printable character
-    if (e.key.length === 1) {
-      e.preventDefault();
-      inputRef.current?.focus();
-      setUserInput(prev => prev + e.key); // Add the pressed key to the input
-      console.log("Input focused and key added"); // Debugging line
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log("Adding event listener"); // Debugging line
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      console.log("Removing event listener"); // Debugging line
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleKeyDown]);
-
   // automatically scroll to bottom of chat
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -322,7 +287,6 @@ const Chat = ({
         }`}
       >
         <input
-          ref={inputRef}
           type="text"
           className="flex-grow p-4 md:p-2 mr-2 md:mr-4 rounded border-2 border-black focus:outline-none focus:border-black focus:bg-white text-base bg-gray-100"
           value={userInput}
