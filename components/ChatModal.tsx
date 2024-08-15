@@ -12,47 +12,13 @@ import { useChat } from 'ai/react';
 import Chat from "./Chat";
 
 // Define the props interface
-interface ChatModalProps {
-  setIframeUrl: (url: string) => void;
-}
 
-export default function ChatModal({ setIframeUrl }: ChatModalProps) {
-    const { messages, input, handleInputChange, handleSubmit, isLoading, error, reload } =
-        useChat({
-            keepLastMessageOnError: true,
-        });
-
-    useEffect(() => {
-      const handleLinkClick = (event: Event) => {
-        event.preventDefault(); // Prevent default navigation behavior
-        event.stopPropagation();
-        const url = (event.currentTarget as HTMLAnchorElement).href;
-
-        // Debugging statements
-        console.log("Link clicked!");
-        console.log("Default event prevented.");
-        console.log("Navigating iframe to URL:", url);
-
-        setIframeUrl(url); // Update the iframe URL state
-      };
-
-      const links = document.querySelectorAll('.py-10 a');
-      links.forEach(link => {
-        link.addEventListener('click', handleLinkClick as EventListener);
-      });
-
-      // Cleanup function to remove event listeners
-      return () => {
-        links.forEach(link => {
-          link.removeEventListener('click', handleLinkClick as EventListener);
-        });
-      };
-    }, [setIframeUrl]);
+export default function ChatModal() {
 
     return (
       <div className="py-40  flex items-center justify-center">
         <Modal>
-          <ModalTrigger className="bg-[#f1f333] border-r-4 border-b-4 border-black dark:bg-white dark:text-black text-black flex justify-center rounded hover:-translate-y-0.5">
+          <ModalTrigger className="bg-[#f1f333] border-[1px] border-black dark:bg-white dark:text-black text-black flex justify-center rounded hover:-translate-y-0.5 shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(0,0,0),3px_3px_rgba(0,0,0),4px_4px_rgba(0,0,0),5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[1px_1px_rgba(255,255,255),2px_2px_rgba(255,255,255),3px_3px_rgba(255,255,255),4px_4px_rgba(255,255,255),5px_5px_0px_0px_rgba(255,255,255)]">
             <span className="group-hover/modal-btn:translate-x-40 text-center transition duration-500 font-semibold">
               Ask Gummy
             </span>
