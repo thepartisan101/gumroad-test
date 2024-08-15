@@ -96,11 +96,17 @@ const Chat = ({
   // create a new threadID when chat component created
   useEffect(() => {
     const createThread = async () => {
-      const res = await fetch(`/api/assistants/threads`, {
-        method: "POST",
-      });
-      const data = await res.json();
-      setThreadId(data.threadId);
+      try {
+        const res = await fetch(`/api/assistants/threads`, { method: "POST" });
+        if (!res.ok) {
+          throw new Error(`Error: ${res.status} ${res.statusText}`);
+        }
+        const data = await res.json();
+        setThreadId(data.threadId);
+      } catch (error) {
+        console.error("Failed to create thread:", error);
+        // Show an error message to the user or handle it as needed
+      }
     };
     createThread();
   }, []);
@@ -275,7 +281,8 @@ const Chat = ({
         {messages.map((msg, index) => (
           <Message key={index} role={msg.role} text={msg.text} />
         ))}
-        {isLoading && (!messages || messages.length === 0) && <LoadingDots />}
+        {/* {isLoading && (!messages || messages.length === 0) && <Loadin gDots />} */}
+        {isLoading && <LoadingDots />}
         <div ref={messagesEndRef} />
       </div>
       <form
