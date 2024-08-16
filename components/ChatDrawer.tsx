@@ -316,7 +316,7 @@ const Chat = ({
 
             <div className="mt-6 sm:mt-4">
               <div className="flex flex-col-reverse l w-full relative mb-2">
-                <div className="flex-grow overflow-y-auto scrollbar p-2 sm:p-4 flex flex-col order-2 whitespace-pre-wrap max-h-[calc(100vh-190px)] md:max-h-[calc(100vh-150px)]">
+                <div className="flex-grow overflow-y-auto scrollbar p-2 sm:p-4 flex flex-col order-2 whitespace-pre-wrap max-h-[calc(100vh-220px)] md:max-h-[calc(100vh-150px)]">
                   {messages.map((msg, index) => (
                     <Message key={index} role={msg.role} text={msg.text} />
                   ))}
