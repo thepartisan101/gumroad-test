@@ -293,10 +293,10 @@ const Chat = ({
         <div
           className={`fixed top-0 right-0 h-full border-black border-[1px] bg-white transform ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
-          } transition-transform duration-300 ease-in-out w-1/3 shadow-[-1px_1px_rgba(0,0,0),-2px_2px_rgba(0,0,0),-3px_3px_rgba(0,0,0),-4px_4px_rgba(0,0,0),-5px_5px_0px_0px_rgba(0,0,0)]`}
+          } transition-transform duration-300 ease-in-out w-5/6 sm:w-4/6 md:w-1/3 shadow-[-1px_1px_rgba(0,0,0),-2px_2px_rgba(0,0,0),-3px_3px_rgba(0,0,0),-4px_4px_rgba(0,0,0),-5px_5px_0px_0px_rgba(0,0,0)]`}
         >
-          <div className="p-4">
-            <div className="flex align-middle justify-between p-1">
+          <div className="p-1 sm:p-4">
+            <div className="flex align-middle justify-between p-2 sm:p-1">
               <div className="flex justify-start">
                 <p className="text-gray-700 hover:text-gray-900 text-lg">
                   What do you want to make today?
@@ -314,9 +314,9 @@ const Chat = ({
               </div>
             </div>
 
-            <div className="mt-4">
+            <div className="mt-6 sm:mt-4">
               <div className="flex flex-col-reverse l w-full relative mb-2">
-                <div className="flex-grow overflow-y-auto scrollbar p-2 md:p-4 flex flex-col order-2 whitespace-pre-wrap max-h-[calc(100vh-150px)]">
+                <div className="flex-grow overflow-y-auto scrollbar p-2 sm:p-4 flex flex-col order-2 whitespace-pre-wrap max-h-[calc(100vh-150px)]">
                   {messages.map((msg, index) => (
                     <Message key={index} role={msg.role} text={msg.text} />
                   ))}
