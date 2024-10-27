@@ -1,4 +1,4 @@
-export let assistantId = ""; // change assistant ID back to gumroad after test
+export let assistantId = ""; // change assistant ID
 
 if (assistantId === "") {
   assistantId = process.env.OPENAI_ASSISTANT_ID;
